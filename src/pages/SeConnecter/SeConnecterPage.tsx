@@ -10,16 +10,18 @@ const SeConnecterPage: React.FC = () => {
 
         const formData = new FormData(event.currentTarget); // Récupérer les données du formulaire
         const password = formData.get('password');
-        const email = formData.get('email');
+        const username = formData.get('username');
 
         const data = {
-            adresse_mail: email,
+            username: username,
             password: password,
         };
 
+        console.log(data);
+
         try {
             const response = await axios.post(
-                'http://localhost:8080/api/login',
+                'http://localhost:5001/login',
                 data
             );
 
@@ -54,9 +56,8 @@ const SeConnecterPage: React.FC = () => {
                                                 <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                                 <div className="form-outline flex-fill mb-0">
 
-                                                    <input type="email" id="form3Example3c" className="form-control" name="email"/>
-                                                    <label className="form-label" htmlFor="form3Example3c">Your
-                                                        Email</label>
+                                                    <input type="username" id="form3Example3c" className="form-control" name="username"/>
+                                                    <label className="form-label" htmlFor="form3Example3c">Nom d'utilisateur</label>
 
                                                 </div>
                                             </div>
@@ -68,7 +69,7 @@ const SeConnecterPage: React.FC = () => {
                                                     <input type="password" id="form3Example4c"
                                                            className="form-control" name="password"/>
                                                     <label className="form-label"
-                                                           htmlFor="form3Example4c">Password</label>
+                                                           htmlFor="form3Example4c">Mot de passe</label>
 
 
 
