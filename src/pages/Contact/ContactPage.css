@@ -1,0 +1,18 @@
+/* Style du bouton */
+.custom-btn-style {
+    background-color: #fff;
+    color: #70BD95;
+    border-color: #70BD95;
+    border-radius: 10px;
+    width: 200px;
+    height: 65px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Style au survol */
+.custom-btn-style:hover {
+
+    background-color: #70BD95;
+    color: #fff;
+    border-color: #70BD95;
+}
