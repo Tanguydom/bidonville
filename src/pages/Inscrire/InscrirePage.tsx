@@ -17,7 +17,7 @@ const InscrirePage: React.FC = () => {
             alert("Les mots de passe ne correspondent pas !");
             return;
         }
-        const hashedPassword = await bcrypt.hash(password, 10);
+        //const hashedPassword = await bcrypt.hash(password, 10);
 
         // Vérification de la case de confirmation des conditions générales d'utilisation
         const termsChecked = formData.get('terms');
@@ -29,11 +29,22 @@ const InscrirePage: React.FC = () => {
             adresse_mail: formData.get('email')
         }
 
+        const role = formData.get('role');
+        let intRole;
+        if (role === '1') {
+            intRole = 1;
+        } else if (role === '2') {
+            intRole = 2;
+        } else {
+            intRole = 0;
+        }
+        console.log(intRole);
+
         const data = {
             username: formData.get('name'),
-            password: hashedPassword,
+            password: formData.get('password'),
             email: formData.get('email'),
-            role: parseInt(formData.get('role') as string),
+            role: intRole,
             telephone: formData.get('telephone'),
         };
 
@@ -91,11 +102,15 @@ const InscrirePage: React.FC = () => {
                                             <div className="d-flex flex-row align-items-center mb-4">
                                                 <i className="fas fa-key fa-lg me-3 fa-fw"></i>
                                                 <div className="form-outline flex-fill mb-0">
-                                                    <input type="text" id="form3Example4cd" className="form-control"
-                                                           name="role"/>
                                                     <label className="form-label" htmlFor="form3Example4cd">Role</label>
+                                                    <select id="form3Example4cd" className="form-control" name="role">
+                                                        <option value="2">ADMIN</option>
+                                                        <option value="1">PROPRIETAIRE</option>
+                                                        <option value="0">LOCATAIRE</option>
+                                                    </select>
                                                 </div>
                                             </div>
+
 
                                             <div className="d-flex flex-row align-items-center mb-4">
                                                 <i className="fas fa-key fa-lg me-3 fa-fw"></i>
