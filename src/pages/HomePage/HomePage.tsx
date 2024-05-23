@@ -27,10 +27,10 @@ const HomePage: React.FC = () => {
                         <div style={{ padding: '20px' }}>
                             <div className="text-center my-5">
                                 <h1 className="display-5 fw-bolder mb-1" style={{ padding: '37px', ...whiteTextStyle }}>
-                                    Bienvenue sur PasseTaMaison
+                                    Bienvenue sur Bidonville
                                 </h1>
                                 <p className="lead mb-4" style={{ textAlign: 'justify', width: '70%', marginLeft: '15%', ...greenTextStyle }}>
-                                    Trouvez votre logement idéal avec PasseTaMaison. Nous offrons une vaste sélection de propriétés en location, adaptées à tous les besoins et budgets.
+                                    L'application de rat pour éviter de dormir dehors.
                                 </p>
                                 <div className="d-grid gap-3 d-sm-flex justify-content-sm-center">
                                     <button
@@ -52,10 +52,10 @@ const HomePage: React.FC = () => {
                             <div className="card">
                                 <div className="card-body" style={{height : '250px', borderRadius: '20px', boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.5)'}}>
                                     <h2 className="h4 fw-bolder text-dark" style={{ textAlign: 'center', marginBottom: '20px' }}>
-                                        Large Sélection
+                                        Un large choix
                                     </h2>
                                     <p className="text-muted" style={{ textAlign: 'justify' }}>
-                                        Découvrez une large sélection de logements disponibles à la location, que vous cherchiez un appartement, une maison ou une villa.
+                                        Découvrez une large sélection de logements disponibles à la location, que vous cherchiez un banc, un abris de bus ou une magnifique tente.
                                     </p>
                                 </div>
                             </div>
@@ -64,10 +64,10 @@ const HomePage: React.FC = () => {
                             <div className="card">
                                 <div className="card-body" style={{height : '250px', borderRadius: '20px', boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.5)'}}>
                                     <h2 className="h4 fw-bolder text-dark" style={{ textAlign: 'center', marginBottom: '20px' }}>
-                                        Flexibilité
+                                        Des prix imbattables
                                     </h2>
                                     <p className="text-muted" style={{ textAlign: 'justify' }}>
-                                        Trouvez des options de location flexibles pour répondre à vos besoins, que vous recherchiez une location à court ou à long terme.
+                                        Fait pour les étudiants en galère, les SDF et Tim
                                     </p>
                                 </div>
                             </div>
@@ -80,6 +80,7 @@ const HomePage: React.FC = () => {
                                     </h2>
                                     <p className="text-muted" style={{ textAlign: 'justify' }}>
                                         Notre équipe de support client est là pour vous aider à chaque étape de votre recherche et de votre location de logement.
+                                        Nan on dahak démerdez vous !
                                     </p>
                                 </div>
                             </div>
