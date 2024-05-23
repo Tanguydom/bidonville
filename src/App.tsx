@@ -7,7 +7,6 @@ import ContactPage from "./pages/Contact/ContactPage";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Produit from "./pages/Produit/Produit";
-import Visite from "./pages/Visite/Visite";
 import Profil from "./pages/Profil/Profil";
 import ProduitDetail from "./pages/ProduitDetail/ProduitDetail";
 
@@ -32,7 +31,6 @@ const App: React.FC = () => {
                 <Route path="contact" element={<ContactPage />} />
                 <Route path="produit" element={<ProtectedRoute element={<Produit />} />} />
                 <Route path="produit/:id" element={<ProtectedRoute element={<ProduitDetail />} />} />
-                <Route path="visite" element={<ProtectedRoute element={<Visite />} />} />
                 <Route path="profil" element={<ProtectedRoute element={<Profil />} />} />
             </Routes>
             <Footer />

@@ -1,129 +1,116 @@
 import React, { useState, useEffect } from 'react';
-import axios, {toFormData} from "axios";
+import axios from "axios";
 import './Produit.css';
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import PropertyCard from './ProduitCard'; // Assurez-vous que le chemin est correct
 
+interface Room {
+    number: number;
+    type: string;
+}
+
+interface Pricing {
+    charge: number;
+    price: number;
+}
+
+interface Property {
+    address: string;
+    idOwner: number;
+    idProperty: number;
+    internet: string;
+    pricing: Pricing;
+    rooms: Room[];
+    surface: number;
+    terrace: boolean;
+}
 
 const Produit: React.FC = () => {
-    const [produits, setProduits] = useState([]); // tableau de produit
+    const [properties, setProperties] = useState<Property[]>([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [propertyType, setPropertyType] = useState('');
 
-    useEffect(() => { // au chargement de la page
-        getProduct();
+    useEffect(() => {
+        axios.get('http://localhost:5002/properties')
+            .then(response => {
+                if (response.data.status === 'Success') {
+                    setProperties(response.data.result);
+                    console.log(response.data.result);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching properties:', error);
+            });
     }, []);
 
-    const getProduct = () => {
-        axios.get('http://localhost:8080/api/produit')
-            .then((res) => {
-                setProduits(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
-
-    const handleSelectedChange = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSearchSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const type = formData.get('type');
-        const nom = formData.get('name');
-
-        console.log(type + " " + nom);
-
-        if (type === "" && nom === "") {
-            getProduct();
-            return;
-        }
-
-        if (type === "") {
-            axios.get("http://localhost:8080/api/produit/search?nom=" + nom)
-            .then((res) => {
-               setProduits(res.data)
-            }
-            )
-            .catch((err) => {
-                setProduits([])
-              });
-            return;
-        }
-        else {
-            axios.get("http://localhost:8080/api/produit/search?nom=" + nom + "&type=" + type)
-                .then((res) => {
-                        setProduits(res.data)
-                    }
-                )
-                .catch((err) => {
-                    setProduits([])
-                });
-            return;
-        }
-    }
-
-    const ProduitCard: React.FC<{ produit: any }> = ({ produit }) => {
-
-        const imagePath = require(`../../assets/produit/${produit.image}`);
-
-        return (
-            <div className="col-md-4 mb-4">
-                <NavLink className="nav-link" to={`/produit/${produit.id_produit}`} style={{ textDecoration: 'none' }}>
-                    <div className="card shadow" style={{ height: '100%', boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.2)' }}>
-                        <div className="row g-0">
-                            <div className="col-md-6 d-flex justify-content-center align-items-center">
-                                <img
-                                    src={imagePath}
-                                    className="img-fluid rounded-start"
-                                    alt="..."
-                                    style={{ width: '70%', height: '80px' }}
-                                />
-                            </div>
-                            <div className="col-md-6">
-                                <div className="card-body">
-                                    <h5 className="card-title">{produit.nom}</h5>
-                                    <p className="card-text">{produit.description}</p>
-                                    <p className="card-text">Type : {produit.type}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </NavLink>
-            </div>
-        );
+        // Implement search logic here
     };
 
-
     return (
-        <div className={"toto"}>
-            <form onSubmit={handleSelectedChange}>
-                <div className="row g-3 m-lg-3 mb-4">
-
-                    <div className="col">
-                        <div className="form-outline flex-fill mb-0">
-                            <input type="text" id="form3Example1c" className="form-control" name="name" placeholder={"Rechercher un nom"}  />
-                        </div>
-                    </div>
-
-                    <div className="col">
-                        <select className="form-select" aria-label="Default select example" name="type">
-                            <option value="">Aucun</option>
-                            <option value="camera">Caméra</option>
-                            <option value="capteur">Capteur</option>
-                            <option value="logiciel">Logiciel</option>
-                            <option value="maintenance">Maintenance</option>
-                            <option value="lampadaire">Lampadaire</option>
-                            <option value="Borne IRVE">Borne IRVE</option>
-                            <option value="IA">IA</option>
-                            <option value="autres">autres</option>
-                        </select>
-                    </div>
-                    <div className="col">
-                        <button type="submit" className="btn btn-outline-success">Rechercher</button>
+        <div>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <div className="container-fluid">
+                    <NavLink className="navbar-brand" to="/">Home</NavLink>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/properties">Properties</NavLink>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </form>
-
-            <div className="row row-cols-3 m-lg-3 m">
-                {produits.map((produit: any) => (
-                    <ProduitCard key={produit.id_produit} produit={produit} />
-                ))}
+            </nav>
+            <div className="toto">
+                <form onSubmit={handleSearchSubmit}>
+                    <div className="row g-3 m-lg-3 mb-4">
+                        <div className="col">
+                            <div className="form-outline flex-fill mb-0">
+                                <input
+                                    type="text"
+                                    id="form3Example1c"
+                                    className="form-control"
+                                    name="name"
+                                    placeholder="Rechercher une adresse"
+                                    value={searchQuery}
+                                    onChange={e => setSearchQuery(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="col">
+                            <select
+                                className="form-select"
+                                aria-label="Default select example"
+                                name="type"
+                                value={propertyType}
+                                onChange={e => setPropertyType(e.target.value)}
+                            >
+                                <option value="">Aucun</option>
+                                <option value="appartement">Appartement</option>
+                                <option value="maison">Maison</option>
+                                <option value="studio">Studio</option>
+                                <option value="villa">Villa</option>
+                                <option value="autres">Autres</option>
+                            </select>
+                        </div>
+                        <div className="col">
+                            <button type="submit" className="btn btn-outline-success">Rechercher</button>
+                        </div>
+                    </div>
+                </form>
+                <div className="container">
+                    <div className="row">
+                        {properties.map(property => (
+                            <div key={property.idProperty} className="col-md-4 mb-4">
+                                <PropertyCard property={property} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );
